@@ -78,16 +78,20 @@ const Statistics = ({hyva, huono, neutraali, yhteensa}) => {
 
   return (
     <div>
-      <Statistic teksti="hyvä" luku={hyva} />
-      <Statistic teksti="neutraali" luku={neutraali} />
-      <Statistic teksti="huono" luku={huono} />
-      <Statistic teksti="keskiarvo" luku={keskiarvo()} />
-      <Statistic teksti="positiivisia" luku={positiivisia()} />
+      <table>
+        <tbody>
+          <Statistic teksti="hyvä" luku={hyva} />
+          <Statistic teksti="neutraali" luku={neutraali} />
+          <Statistic teksti="huono" luku={huono} />
+          <Statistic teksti="keskiarvo" luku={keskiarvo()} />
+          <Statistic teksti="positiivisia" luku={positiivisia()} />     
+        </tbody>  
+      </table>
     </div>
   );
 }
 
-const Statistic = ({teksti, luku}) => <p>{teksti} {luku}</p>;
+const Statistic = ({teksti, luku}) => <tr><td>{teksti}</td><td>{luku}</td></tr>;
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
