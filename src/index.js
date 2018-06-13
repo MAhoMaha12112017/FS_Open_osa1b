@@ -8,25 +8,29 @@ class App extends Component {
     this.state = {
       hyva: 0,
       neutraali: 0,
-      huono: 0
+      huono: 0,
+      yhteensa: 0
     }
   }
 
-  hyva = () => {
+  addHyva = () => {
     this.setState((prevState) => ({
-      hyva: prevState.hyva + 1
+      hyva: prevState.hyva + 1,
+      yhteensa: prevState.yhteensa + 1
     }));
   }
 
-  neutraali = () => {
+  addNeutraali = () => {
     this.setState((prevState) => ({
-      neutraali: prevState.neutraali + 1
+      neutraali: prevState.neutraali + 1,
+      yhteensa: prevState.yhteensa + 1
     }));
   }
 
-  huono = () => {
+  addHuono = () => {
     this.setState((prevState) => ({
-      huono: prevState.huono + 1
+      huono: prevState.huono + 1,
+      yhteensa: prevState.yhteensa + 1
     }));
   }
 
@@ -35,20 +39,47 @@ class App extends Component {
       <div>
         <h2>anna palautetta</h2>
         <div>
-          <button onClick={this.hyva}>hyvä</button>
-          <button onClick={this.neutraali}>neutraali</button>
-          <button onClick={this.huono}>huono</button>
+          <Button handleClick={this.addHyva} text="hyvä" />
+          <Button handleClick={this.addNeutraali} text="neutraali" />
+          <Button handleClick={this.addHuono} text="huono" />
         </div>
         <h2>statistiikka</h2>
         <div>
-          <p>hyvä {this.state.hyva}</p>
-          <p>neutraali {this.state.neutraali}</p>
-          <p>huono {this.state.huono}</p>
-        </div>
+          {this.state.yhteensa > 0 ?  
+            <Statistics 
+              yhteensa={this.state.yhteensa} 
+              hyva={this.state.hyva} 
+              huono={this.state.huono} 
+              neutraali={this.state.neutraali}
+            />
+            : 
+            <p>yhtään palautetta ei annettu</p>
+          }
+          </div>
       </div>
     );
   }
 } 
+
+const Button = ({handleClick, text}) => <button onClick={handleClick}>{text}</button>;
+
+const Statistics = ({hyva, huono, neutraali, yhteensa}) => {
+
+  const positiivisia = () => (100 * hyva / yhteensa).toFixed(2);
+  const keskiarvo = () => ( (hyva - huono) / yhteensa).toFixed(2);
+
+  return (
+    <div>
+      <Statistic teksti="hyvä" luku={hyva} />
+      <Statistic teksti="neutraali" luku={neutraali} />
+      <Statistic teksti="huono" luku={huono} />
+      <Statistic teksti="keskiarvo" luku={keskiarvo()} />
+      <Statistic teksti="positiivisia" luku={positiivisia()} />
+    </div>
+  );
+}
+
+const Statistic = ({teksti, luku}) => <p>{teksti} {luku}</p>;
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
