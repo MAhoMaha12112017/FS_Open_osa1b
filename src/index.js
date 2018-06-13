@@ -13,35 +13,43 @@ class App extends Component {
     }
   }
 
-  addHyva = () => {
-    this.setState((prevState) => ({
-      hyva: prevState.hyva + 1,
-      yhteensa: prevState.yhteensa + 1
-    }));
-  }
+  // addHyva = () => {
+  //   this.setState((prevState) => ({
+  //     hyva: prevState.hyva + 1,
+  //     yhteensa: prevState.yhteensa + 1
+  //   }));
+  // }
 
-  addNeutraali = () => {
-    this.setState((prevState) => ({
-      neutraali: prevState.neutraali + 1,
-      yhteensa: prevState.yhteensa + 1
-    }));
-  }
+  // addNeutraali = () => {
+  //   this.setState((prevState) => ({
+  //     neutraali: prevState.neutraali + 1,
+  //     yhteensa: prevState.yhteensa + 1
+  //   }));
+  // }
 
-  addHuono = () => {
-    this.setState((prevState) => ({
-      huono: prevState.huono + 1,
-      yhteensa: prevState.yhteensa + 1
-    }));
-  }
+  // addHuono = () => {
+  //   this.setState((prevState) => ({
+  //     huono: prevState.huono + 1,
+  //     yhteensa: prevState.yhteensa + 1
+  //   }));
+  // }
+
+  addRating = (rating) => () => {
+      this.setState((prevState) => ({
+        [rating]: prevState[rating] + 1,
+        'yhteensa': prevState.yhteensa + 1
+      }));
+    }
+  
 
   render () {
     return (
       <div>
         <h2>anna palautetta</h2>
         <div>
-          <Button handleClick={this.addHyva} text="hyvä" />
-          <Button handleClick={this.addNeutraali} text="neutraali" />
-          <Button handleClick={this.addHuono} text="huono" />
+          <Button handleClick={this.addRating('hyva')} text="hyvä" />
+          <Button handleClick={this.addRating('neutraali')} text="neutraali" />
+          <Button handleClick={this.addRating('huono')} text="huono" />
         </div>
         <h2>statistiikka</h2>
         <div>
